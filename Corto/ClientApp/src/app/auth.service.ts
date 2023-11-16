@@ -11,6 +11,7 @@ export class AuthService {
     const settings: UserManagerSettings = {
       authority: 'https://accounts.google.com',
       client_id: '662908248642-ip6c3n7mso953lkqvvcftq8dbq4ehncc.apps.googleusercontent.com',
+      client_secret: '***REMOVED***',
       redirect_uri: `${window.location.origin}/callback`,
       response_type: 'code',
       scope: 'openid profile',
@@ -20,15 +21,15 @@ export class AuthService {
     this.userManager = new UserManager(settings);
   }
 
-  login() {
+  public login(): Promise<void> {
     return this.userManager.signinRedirect();
   }
 
-  async completeAuthentication() {
-    await this.userManager.signinRedirectCallback();
+  public completeAuthentication(): Promise<User> {
+    return this.userManager.signinRedirectCallback();
   }
 
-  logout() {
+  public logout(): Promise<void> {
     return this.userManager.signoutRedirect();
   }
 }

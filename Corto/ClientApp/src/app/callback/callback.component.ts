@@ -9,9 +9,8 @@ export class CallbackComponent implements OnInit {
 
   constructor(private authService: AuthService) { }
 
-  ngOnInit() {
-    this.authService.completeAuthentication().then(() => {
-      window.location.href = '/';
-    });
+  async ngOnInit() {
+    const user = await this.authService.completeAuthentication();
+    console.log(user);
   }
 }
