@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../auth/auth.service';
+import { LinkService } from '../link/link.service';
 
 @Component({
   selector: 'app-callback',
@@ -7,10 +8,11 @@ import { AuthService } from '../auth.service';
 })
 export class CallbackComponent implements OnInit {
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private linkSrvice: LinkService) { }
 
   async ngOnInit() {
     const user = await this.authService.completeAuthentication();
-    console.log(user);
+    const response = await this.linkSrvice.getMyShortenedLinks(user);
+    console.log(response);
   }
 }
