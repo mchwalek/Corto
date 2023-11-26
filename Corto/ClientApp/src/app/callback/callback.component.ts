@@ -12,7 +12,6 @@ export class CallbackComponent implements OnInit {
 
   async ngOnInit() {
     const user = await this.authService.completeAuthentication();
-    const response = await this.linkSrvice.getMyShortenedLinks(user);
-    console.log(response);
+    const observable = this.linkSrvice.getMyShortenedLinks(user);
   }
 }
