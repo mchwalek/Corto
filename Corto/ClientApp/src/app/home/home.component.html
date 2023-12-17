@@ -1,3 +1,4 @@
 <h1>Hello, world!</h1>
 
-<button (click)="login()">Login</button>
+<button *ngIf="showLogin" (click)="login()">Login</button>
+<button *ngIf="showLogout" (click)="logout()">Logout</button>

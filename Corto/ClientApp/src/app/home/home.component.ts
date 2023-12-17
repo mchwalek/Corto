@@ -9,8 +9,19 @@ export class HomeComponent {
   constructor(private authService: AuthService) {
   }
 
+  login(): void {
+    this.authService.login();
+  }
 
-  login() {
-    return this.authService.login();
+  logout(): void {
+    this.authService.logout();
+  }
+
+  get showLogin(): boolean {
+    return !this.authService.isLoggedIn;
+  }
+
+  get showLogout(): boolean {
+    return this.authService.isLoggedIn;
   }
 }
