@@ -16,6 +16,14 @@ constructor(private oauthService: OAuthService) {
     this.oauthService.logOut();
   }
 
+  public addLoginHandler(handler: Function): void {
+    this.oauthService.events.subscribe(event => {
+      if (event.type == 'token_received') {
+        handler();
+      }
+    });
+  }
+
   get isLoggedIn(): boolean {
     return this.oauthService.hasValidIdToken();
   }

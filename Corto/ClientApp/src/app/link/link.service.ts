@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { User } from 'oidc-client-ts';
 import { Link } from './link';
 import { Observable } from 'rxjs';
 
@@ -12,11 +11,7 @@ export class LinkService {
 
   constructor(private http: HttpClient) { }
 
-  getMyShortenedLinks(user: User): Observable<Link[]> {
-    const headers = new HttpHeaders({
-      'Authorization': `${user.token_type} ${user.id_token}`
-    });
-
-    return this.http.get<Link[]>(this.apiUrl, { headers });
+  getMyShortenedLinks(): Observable<Link[]> {
+    return this.http.get<Link[]>(this.apiUrl);
   }
 }
