@@ -1,30 +1,32 @@
-import { Injectable } from '@angular/core';
-import { OAuthService } from 'angular-oauth2-oidc';
+//TODO: rewrite
 
-@Injectable({
-  providedIn: 'root'
-})
-export class AuthService {
-constructor(private oauthService: OAuthService) {
-  }
+//import { Injectable } from '@angular/core';
+//import { OAuthService } from 'angular-oauth2-oidc';
 
-  public login(): void {
-    this.oauthService.initLoginFlow();
-  }
+//@Injectable({
+//  providedIn: 'root'
+//})
+//export class AuthService {
+//constructor(private oauthService: OAuthService) {
+//  }
 
-  public logout(): void {
-    this.oauthService.logOut();
-  }
+//  public login(): void {
+//    this.oauthService.initLoginFlow();
+//  }
 
-  public addLoginHandler(handler: Function): void {
-    this.oauthService.events.subscribe(event => {
-      if (event.type == 'token_received') {
-        handler();
-      }
-    });
-  }
+//  public logout(): void {
+//    this.oauthService.logOut();
+//  }
 
-  get isLoggedIn(): boolean {
-    return this.oauthService.hasValidIdToken();
-  }
-}
+//  public addLoginHandler(handler: Function): void {
+//    this.oauthService.events.subscribe(event => {
+//      if (event.type == 'token_received') {
+//        handler();
+//      }
+//    });
+//  }
+
+//  get isUserLoggedIn(): boolean {
+//    return this.oauthService.hasValidIdToken();
+//  }
+//}

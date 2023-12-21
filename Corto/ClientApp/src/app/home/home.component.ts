@@ -1,44 +1,52 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth/auth.service';
-import { Link } from '../link/link';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { OAuthService } from 'angular-oauth2-oidc';
 import { LinkService } from '../link/link.service';
+import { Link } from '../link/link';
+import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
+import { AppRoutes } from '../app-routes';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
+  private authSubscription: Subscription | null = null;
+  isLoggedIn: boolean = false;
   links: Link[] = [];
 
-  constructor(private authService: AuthService, private linkService: LinkService) {
+  constructor(private oauthService: OAuthService, private linkService: LinkService, private router: Router) { }
+
+  ngOnInit() {
+    this.authSubscription = this.oauthService.events.subscribe(e => {
+      if (e.type === 'token_received') {
+        this.isLoggedIn = true;
+        this.loadLinks();
+      }
+    });
+
+    this.checkInitialAuthentication();
   }
 
-  ngOnInit(): void {
-    this.authService.addLoginHandler(this.loadMyShortenedLinks);
-
-    if (this.authService.isLoggedIn) {
-      this.loadMyShortenedLinks();
+  ngOnDestroy() {
+    if (this.authSubscription) {
+      this.authSubscription.unsubscribe();
     }
   }
 
-  login(): void {
-    this.authService.login();
+  logout() {
+    this.oauthService.logOut();
+    this.router.navigate([`/${AppRoutes.Login}`]);
   }
 
-  logout(): void {
-    this.authService.logout();
-    this.links = [];
+  private checkInitialAuthentication() {
+    this.isLoggedIn = this.oauthService.hasValidAccessToken();
+    if (this.isLoggedIn) {
+      this.loadLinks();
+    }
   }
 
-  get showLogin(): boolean {
-    return !this.authService.isLoggedIn;
-  }
-
-  get showLogout(): boolean {
-    return this.authService.isLoggedIn;
-  }
-
-  private loadMyShortenedLinks = () => {
+  private loadLinks() {
     this.linkService.getMyShortenedLinks().subscribe(x => this.links = x);
   }
 }

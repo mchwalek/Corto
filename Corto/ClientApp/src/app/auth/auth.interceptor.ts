@@ -1,4 +1,4 @@
-import { Injectable, Optional } from '@angular/core';
+import { Injectable } from '@angular/core';
 import {
   HttpRequest,
   HttpHandler,
@@ -14,16 +14,9 @@ export class AuthInterceptor implements HttpInterceptor {
 
 
   public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if (!req.url.startsWith('https://localhost:7248')) {
-      return next.handle(req);
-    }
-
     const idToken = this.oauthService.getIdToken();
-    const authReq = req.clone({
-      headers: req.headers.set('Authorization', 'Bearer ' + idToken)
-    });
+    const authReq = !!idToken ? req.clone({ setHeaders: { Authorization: `Bearer ${idToken}` } }) : req;
 
     return next.handle(authReq);
-
   }
 }
