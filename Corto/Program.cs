@@ -7,11 +7,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<ILinkService, LinkService>();
-builder.Services.AddAuthentication("Bearer")
-    .AddJwtBearer("Bearer", options =>
+builder.Services.AddAuthentication()
+    .AddJwtBearer(options =>
     {
-        options.Authority = "https://accounts.google.com";
-        options.Audience = "662908248642-ip6c3n7mso953lkqvvcftq8dbq4ehncc.apps.googleusercontent.com";
+        options.Authority = "https://login.microsoftonline.com/b620fa98-d773-48a6-ab01-c31f80668532/v2.0";
+        options.Audience = "81f84e2d-d28d-4d43-b378-61e2533ed0a9";
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = true,

@@ -5,18 +5,19 @@ import {
   HttpEvent,
   HttpInterceptor
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { OAuthService } from 'angular-oauth2-oidc';
+import { Observable, from, switchMap } from 'rxjs';
+import { AuthService } from './auth.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private oauthService: OAuthService) {}
+  constructor(private authService: AuthService) {}
 
 
   public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const idToken = this.oauthService.getIdToken();
-    const authReq = !!idToken ? req.clone({ setHeaders: { Authorization: `Bearer ${idToken}` } }) : req;
-
-    return next.handle(authReq);
+    return from(this.authService.getIdToken()).pipe(
+      switchMap(idToken => {
+        const authReq = idToken ? req.clone({ setHeaders: { Authorization: `Bearer ${idToken}` } }) : req;
+        return next.handle(authReq);
+      }));
   }
 }

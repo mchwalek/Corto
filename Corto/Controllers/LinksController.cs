@@ -20,14 +20,15 @@ namespace Corto.Controllers
         [HttpGet]
         public async Task<IActionResult> GetMyShortenedLinks()
         {
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var issuer =  User.FindFirst("iss")?.Value;
+            var issuerId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-            if (string.IsNullOrEmpty(userId))
+            if (string.IsNullOrEmpty(issuer) || string.IsNullOrEmpty(issuerId))
             {
                 return Unauthorized("User ID is not available.");
             }
 
-            var links = await _linkService.GetLinksByUserIdAsync(userId);
+            var links = await _linkService.GetLinksByUserIdAsync($"{issuerId}@{issuer}");
             return Ok(links);
         }
     }

@@ -1,8 +1,6 @@
 <h1>Corto home</h1>
 
-<div *ngIf="isLoggedIn">
-  <button (click)="logout()">Logout</button>
-  <div>
-    {{ links | json }}
-  </div>
+<button (click)="logout()">Logout</button>
+<div>
+  {{ links | json }}
 </div>
