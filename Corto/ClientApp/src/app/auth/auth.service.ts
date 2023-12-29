@@ -33,14 +33,9 @@ export class AuthService {
     return this.userManager.signoutRedirect();
   }
 
-  public async getLoginState(): Promise<boolean> {
+  public async isLoggedIn(): Promise<boolean> {
     const user = await this.userManager.getUser();
     return !!user?.access_token;
-  }
-
-  public async getUserName(): Promise<string> {
-    const user = await this.userManager.getUser();
-    return user?.profile?.name ?? '';
   }
 
   public async getIdToken(): Promise<string> {
