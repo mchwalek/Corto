@@ -10,8 +10,8 @@ builder.Services.AddScoped<ILinkService, LinkService>();
 builder.Services.AddAuthentication()
     .AddJwtBearer(options =>
     {
-        options.Authority = "https://login.microsoftonline.com/b620fa98-d773-48a6-ab01-c31f80668532/v2.0";
-        options.Audience = "81f84e2d-d28d-4d43-b378-61e2533ed0a9";
+        options.Authority = "https://dev-8jr1l7tj0ahmffmn.us.auth0.com/";
+        options.Audience = "iR35GuXfTXOA5oGuTBgIrzE53jLZtoFB";
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = true,

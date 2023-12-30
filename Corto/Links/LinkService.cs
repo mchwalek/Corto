@@ -9,7 +9,7 @@
     {
         private static readonly List<Link> _linksSeed = new List<Link>()
         {
-            new () { Id = 1, OriginalUrl = "google.com", ShortenedUrl = "asdf", UserId = "***REMOVED***" },
+            new () { Id = 1, OriginalUrl = "google.com", ShortenedUrl = "asdf", UserId = "current user" },
             new () { Id = 1, OriginalUrl = "amazon.com", ShortenedUrl = "qwer", UserId = "other" },
         };
 
