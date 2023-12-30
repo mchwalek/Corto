@@ -10,8 +10,8 @@ export class AuthService {
 
   constructor() {
     const settings: UserManagerSettings = {
-      authority: 'https://login.microsoftonline.com/b620fa98-d773-48a6-ab01-c31f80668532/v2.0',
-      client_id: '81f84e2d-d28d-4d43-b378-61e2533ed0a9',
+      authority: 'https://dev-8jr1l7tj0ahmffmn.us.auth0.com',
+      client_id: 'iR35GuXfTXOA5oGuTBgIrzE53jLZtoFB',
       redirect_uri: `${window.location.origin}/${AppRoutes.Callback}`,
       post_logout_redirect_uri: window.location.origin,
       response_type: 'code',
