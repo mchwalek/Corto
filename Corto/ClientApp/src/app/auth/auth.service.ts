@@ -16,6 +16,9 @@ export class AuthService {
       post_logout_redirect_uri: window.location.origin,
       response_type: 'code',
       scope: 'openid profile',
+      extraQueryParams: {
+        audience: 'Corto API'
+      }
     };
 
     this.userManager = new UserManager(settings);
@@ -38,8 +41,8 @@ export class AuthService {
     return !!user?.access_token;
   }
 
-  public async getIdToken(): Promise<string> {
+  public async getAccessToken(): Promise<string> {
     const user = await this.userManager.getUser();
-    return user?.id_token ?? '';
+    return user?.access_token ?? '';
   }
 }

@@ -11,7 +11,7 @@ builder.Services.AddAuthentication()
     .AddJwtBearer(options =>
     {
         options.Authority = "https://dev-8jr1l7tj0ahmffmn.us.auth0.com/";
-        options.Audience = "iR35GuXfTXOA5oGuTBgIrzE53jLZtoFB";
+        options.Audience = "Corto API";
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = true,
