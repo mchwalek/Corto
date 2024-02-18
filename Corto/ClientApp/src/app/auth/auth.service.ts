@@ -37,8 +37,8 @@ export class AuthService {
   }
 
   public async isLoggedIn(): Promise<boolean> {
-    const user = await this.userManager.getUser();
-    return !!user?.access_token;
+    const accessToken = await this.getAccessToken();
+    return !!accessToken;
   }
 
   public async getAccessToken(): Promise<string> {
